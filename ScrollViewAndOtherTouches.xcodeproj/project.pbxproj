@@ -20,6 +20,7 @@
 		4B1B6EA117C4EFC600BB2C36 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B1B6E9F17C4EFC600BB2C36 /* ViewController.xib */; };
 		4B1B6EA817C4F04F00BB2C36 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B1B6EA717C4F04F00BB2C36 /* 1.png */; };
 		4B1B6EAB17C4F75E00BB2C36 /* ContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B6EAA17C4F75E00BB2C36 /* ContentView.m */; };
+		4B1B6EB417C53D8100BB2C36 /* PinchRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B6EB317C53D8100BB2C36 /* PinchRecognizer.m */; };
 		KIYDQKWBMRKIEYEVRWSLKUDQ /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = HYXIFWTDXJPPRRMDCEPMDTJH /* QuartzCore.framework */; };
 		KNPONLATPTEBRUFEBXNXFHCQ /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = THBDITSPYVFDWQYYBDCIDIXG /* libz.dylib */; };
 /* End PBXBuildFile section */
@@ -44,6 +45,8 @@
 		4B1B6EA717C4F04F00BB2C36 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		4B1B6EA917C4F75E00BB2C36 /* ContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentView.h; sourceTree = "<group>"; };
 		4B1B6EAA17C4F75E00BB2C36 /* ContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentView.m; sourceTree = "<group>"; };
+		4B1B6EB217C53D8100BB2C36 /* PinchRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinchRecognizer.h; sourceTree = "<group>"; };
+		4B1B6EB317C53D8100BB2C36 /* PinchRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinchRecognizer.m; sourceTree = "<group>"; };
 		HYXIFWTDXJPPRRMDCEPMDTJH /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		QMNTBWVDMICWTEJGUAKXRYSM /* SparkInspector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SparkInspector.framework; path = "/Applications/Spark Inspector.app/Contents/Resources/Frameworks/SparkInspector.framework"; sourceTree = "<group>"; };
 		THBDITSPYVFDWQYYBDCIDIXG /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -106,6 +109,8 @@
 				4B1B6E9F17C4EFC600BB2C36 /* ViewController.xib */,
 				4B1B6EA917C4F75E00BB2C36 /* ContentView.h */,
 				4B1B6EAA17C4F75E00BB2C36 /* ContentView.m */,
+				4B1B6EB217C53D8100BB2C36 /* PinchRecognizer.h */,
+				4B1B6EB317C53D8100BB2C36 /* PinchRecognizer.m */,
 				4B1B6E8B17C4EFC600BB2C36 /* Supporting Files */,
 			);
 			path = ScrollViewAndOtherTouches;
@@ -196,6 +201,7 @@
 				4B1B6E9517C4EFC600BB2C36 /* AppDelegate.m in Sources */,
 				4B1B6E9E17C4EFC600BB2C36 /* ViewController.m in Sources */,
 				4B1B6EAB17C4F75E00BB2C36 /* ContentView.m in Sources */,
+				4B1B6EB417C53D8100BB2C36 /* PinchRecognizer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

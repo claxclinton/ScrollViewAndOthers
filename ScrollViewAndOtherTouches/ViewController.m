@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet ContentView *contentView;
 @property (strong, nonatomic) UILongPressGestureRecognizer *longPressRecognizer;
+@property (strong, nonatomic) UIPinchGestureRecognizer *pinchGestureRecognizer;
 @end
 
 @implementation ViewController
@@ -25,6 +26,19 @@
                                 initWithTarget:self action:@selector(longPressRecognizer:)];
     self.longPressRecognizer.minimumPressDuration = 1.0;
     [self.contentView addGestureRecognizer:self.longPressRecognizer];
+    
+    self.pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchRecognizer:)];
+    [self.contentView addGestureRecognizer:self.pinchGestureRecognizer];
+}
+
+- (void)pinchRecognizer:(UIGestureRecognizer *)gestureRecognizer {
+    static NSUInteger counter = 0;
+    NSUInteger numberOfTouches = [gestureRecognizer numberOfTouches];
+    for (NSUInteger touchIndex = 0; touchIndex < numberOfTouches; touchIndex++) {
+        CGPoint point = [gestureRecognizer locationOfTouch:touchIndex inView:self.contentView];
+        NSLog(@"Recognized pinch[%d] with point %@", counter, NSStringFromCGPoint(point));
+    }
+    counter++;
 }
 
 - (void)didReceiveMemoryWarning

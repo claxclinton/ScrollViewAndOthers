@@ -34,10 +34,12 @@
 - (void)pinchRecognizer:(UIGestureRecognizer *)gestureRecognizer {
     static NSUInteger counter = 0;
     NSUInteger numberOfTouches = [gestureRecognizer numberOfTouches];
+    NSMutableArray *redDotPoints = [NSMutableArray array];
     for (NSUInteger touchIndex = 0; touchIndex < numberOfTouches; touchIndex++) {
         CGPoint point = [gestureRecognizer locationOfTouch:touchIndex inView:self.contentView];
-        NSLog(@"Recognized pinch[%d] with point %@", counter, NSStringFromCGPoint(point));
+        [redDotPoints addObject:[NSNumber valueWithCGPoint:point]];
     }
+    [self.contentView drawRedDotAtPoints:redDotPoints];
     counter++;
 }
 

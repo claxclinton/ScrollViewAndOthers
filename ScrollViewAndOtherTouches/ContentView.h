@@ -11,5 +11,6 @@
 @interface ContentView : UIView
 
 - (void)drawBlueDotAtPoint:(CGPoint)point;
+- (void)drawRedDotAtPoints:(NSArray *)points;
 
 @end

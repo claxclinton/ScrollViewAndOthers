@@ -14,8 +14,8 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet ContentView *contentView;
 @property (strong, nonatomic) UILongPressGestureRecognizer *longPressRecognizer;
-@property (strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
 @property (strong, nonatomic) PinchGestureRecognizer *pinchGestureRecognizer;
+@property (strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
 @end
 
 @implementation ViewController
@@ -42,8 +42,10 @@
     [self.contentView addGestureRecognizer:self.pinchGestureRecognizer];
 }
 
-- (void)tapRecognizer:(UIGestureRecognizer *)gestureRecognizer {
-    [self.contentView clearAllDots];
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 - (BOOL)gestureRecognizerStateEndedCanceledFailed:(UIGestureRecognizer *)gestureRecognizer {
@@ -54,6 +56,15 @@
             return YES;
         default:
             return NO;
+    }
+}
+
+- (void)longPressRecognizer:(UIGestureRecognizer *)gestureRecognizer {
+    CGPoint point = [gestureRecognizer locationInView:self.contentView];
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan || gestureRecognizer.state == UIGestureRecognizerStateChanged) {
+        [self.contentView drawBlueDotAtPoint:point];
+    } else {
+        [self.contentView drawBlackDotAtPoint:point];
     }
 }
 
@@ -91,26 +102,15 @@
             [self.contentView drawRedDotAtPoint:leftPoint];
             [self.contentView drawGreenDotAtPoint:rightPoint];
         }
-        break;
+            break;
             
         default:
             break;
     }
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)longPressRecognizer:(UIGestureRecognizer *)gestureRecognizer {
-    CGPoint point = [gestureRecognizer locationInView:self.contentView];
-    if (gestureRecognizer.state == UIGestureRecognizerStateBegan || gestureRecognizer.state == UIGestureRecognizerStateChanged) {
-        [self.contentView drawBlueDotAtPoint:point];
-    } else {
-        [self.contentView drawBlackDotAtPoint:point];
-    }
+- (void)tapRecognizer:(UIGestureRecognizer *)gestureRecognizer {
+    [self.contentView clearAllDots];
 }
 
 @end

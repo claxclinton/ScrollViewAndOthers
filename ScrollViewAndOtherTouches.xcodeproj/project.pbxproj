@@ -21,7 +21,7 @@
 		4B1B6EA817C4F04F00BB2C36 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B1B6EA717C4F04F00BB2C36 /* 1.png */; };
 		4B1B6EAB17C4F75E00BB2C36 /* ContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B6EAA17C4F75E00BB2C36 /* ContentView.m */; };
 		4B1B6EB417C53D8100BB2C36 /* PinchRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B6EB317C53D8100BB2C36 /* PinchRecognizer.m */; };
-		4BAD480717C798EF00B2C4B3 /* PinchGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BAD480617C798EF00B2C4B3 /* PinchGestureRecognizer.m */; };
+		4BAD480A17C79DEF00B2C4B3 /* LongPressRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BAD480917C79DEF00B2C4B3 /* LongPressRecognizer.m */; };
 		KIYDQKWBMRKIEYEVRWSLKUDQ /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = HYXIFWTDXJPPRRMDCEPMDTJH /* QuartzCore.framework */; };
 		KNPONLATPTEBRUFEBXNXFHCQ /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = THBDITSPYVFDWQYYBDCIDIXG /* libz.dylib */; };
 /* End PBXBuildFile section */
@@ -48,8 +48,8 @@
 		4B1B6EAA17C4F75E00BB2C36 /* ContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentView.m; sourceTree = "<group>"; };
 		4B1B6EB217C53D8100BB2C36 /* PinchRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinchRecognizer.h; sourceTree = "<group>"; };
 		4B1B6EB317C53D8100BB2C36 /* PinchRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinchRecognizer.m; sourceTree = "<group>"; };
-		4BAD480517C798EF00B2C4B3 /* PinchGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinchGestureRecognizer.h; sourceTree = "<group>"; };
-		4BAD480617C798EF00B2C4B3 /* PinchGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinchGestureRecognizer.m; sourceTree = "<group>"; };
+		4BAD480817C79DEF00B2C4B3 /* LongPressRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LongPressRecognizer.h; sourceTree = "<group>"; };
+		4BAD480917C79DEF00B2C4B3 /* LongPressRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LongPressRecognizer.m; sourceTree = "<group>"; };
 		HYXIFWTDXJPPRRMDCEPMDTJH /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		QMNTBWVDMICWTEJGUAKXRYSM /* SparkInspector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SparkInspector.framework; path = "/Applications/Spark Inspector.app/Contents/Resources/Frameworks/SparkInspector.framework"; sourceTree = "<group>"; };
 		THBDITSPYVFDWQYYBDCIDIXG /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -107,8 +107,6 @@
 				4B1B6EA717C4F04F00BB2C36 /* 1.png */,
 				4B1B6E9317C4EFC600BB2C36 /* AppDelegate.h */,
 				4B1B6E9417C4EFC600BB2C36 /* AppDelegate.m */,
-				4BAD480517C798EF00B2C4B3 /* PinchGestureRecognizer.h */,
-				4BAD480617C798EF00B2C4B3 /* PinchGestureRecognizer.m */,
 				4B1B6E9C17C4EFC600BB2C36 /* ViewController.h */,
 				4B1B6E9D17C4EFC600BB2C36 /* ViewController.m */,
 				4B1B6E9F17C4EFC600BB2C36 /* ViewController.xib */,
@@ -116,6 +114,8 @@
 				4B1B6EAA17C4F75E00BB2C36 /* ContentView.m */,
 				4B1B6EB217C53D8100BB2C36 /* PinchRecognizer.h */,
 				4B1B6EB317C53D8100BB2C36 /* PinchRecognizer.m */,
+				4BAD480817C79DEF00B2C4B3 /* LongPressRecognizer.h */,
+				4BAD480917C79DEF00B2C4B3 /* LongPressRecognizer.m */,
 				4B1B6E8B17C4EFC600BB2C36 /* Supporting Files */,
 			);
 			path = ScrollViewAndOtherTouches;
@@ -207,7 +207,7 @@
 				4B1B6E9E17C4EFC600BB2C36 /* ViewController.m in Sources */,
 				4B1B6EAB17C4F75E00BB2C36 /* ContentView.m in Sources */,
 				4B1B6EB417C53D8100BB2C36 /* PinchRecognizer.m in Sources */,
-				4BAD480717C798EF00B2C4B3 /* PinchGestureRecognizer.m in Sources */,
+				4BAD480A17C79DEF00B2C4B3 /* LongPressRecognizer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

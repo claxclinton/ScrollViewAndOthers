@@ -8,13 +8,14 @@
 
 #import "ViewController.h"
 #import "ContentView.h"
-#import "PinchGestureRecognizer.h"
+#import "PinchRecognizer.h"
+#import "LongPressRecognizer.h"
 
 @interface ViewController () <UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet ContentView *contentView;
-@property (strong, nonatomic) UILongPressGestureRecognizer *longPressRecognizer;
-@property (strong, nonatomic) PinchGestureRecognizer *pinchGestureRecognizer;
+@property (strong, nonatomic) LongPressRecognizer *longPressRecognizer;
+@property (strong, nonatomic) PinchRecognizer *pinchGestureRecognizer;
 @property (strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
 @end
 
@@ -26,7 +27,7 @@
     self.scrollView.contentSize = self.contentView.bounds.size;
     
     // Long press
-    self.longPressRecognizer = [[UILongPressGestureRecognizer alloc]
+    self.longPressRecognizer = [[LongPressRecognizer alloc]
                                 initWithTarget:self action:@selector(longPressRecognizer:)];
     self.longPressRecognizer.minimumPressDuration = 1.0;
     [self.contentView addGestureRecognizer:self.longPressRecognizer];
@@ -38,7 +39,7 @@
     [self.contentView addGestureRecognizer:self.tapGestureRecognizer];
     
     // Pinch
-    self.pinchGestureRecognizer = [[PinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchRecognizer:)];
+    self.pinchGestureRecognizer = [[PinchRecognizer alloc] initWithTarget:self action:@selector(pinchRecognizer:)];
     [self.contentView addGestureRecognizer:self.pinchGestureRecognizer];
 }
 

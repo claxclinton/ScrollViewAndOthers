@@ -1,5 +1,5 @@
 //
-//  PinchGestureRecognizer.h
+//  LongPressRecognizer.h
 //  ScrollViewAndOtherTouches
 //
 //  Created by Claes Lillieskold on 2013-08-23.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PinchGestureRecognizer : UIPinchGestureRecognizer
+@interface LongPressRecognizer : UILongPressGestureRecognizer
 
 @end

@@ -6,8 +6,15 @@
 //  Copyright (c) 2013 Claes Lillieskold. All rights reserved.
 //
 
+#import <UIKit/UIGestureRecognizerSubclass.h>
 #import "PinchRecognizer.h"
 
 @implementation PinchRecognizer
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    if ([touches count] == 2) {
+        self.state = UIGestureRecognizerStateBegan;
+    }
+}
 
 @end

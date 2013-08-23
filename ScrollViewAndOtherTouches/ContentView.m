@@ -11,21 +11,45 @@
 #import <CoreGraphics/CoreGraphics.h>
 
 @interface ContentView ()
-
 @property (assign, nonatomic) CGPoint bluePoint;
 @property (strong, nonatomic) NSMutableArray *allBluePoints;
 @property (strong, nonatomic) NSMutableArray *allRedPoints;
-
+@property (strong, nonatomic) NSMutableArray *allGreenPoints;
+@property (strong, nonatomic) NSMutableArray *allBlackPoints;
 @end
 
 @implementation ContentView
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self commonInit];
+    }
+    return self;
+}
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
+        [self commonInit];
     }
     return self;
+}
+
+- (void)commonInit {
+    _allBluePoints = [NSMutableArray array];
+    _allGreenPoints = [NSMutableArray array];
+    _allRedPoints = [NSMutableArray array];
+    _allBlackPoints = [NSMutableArray array];
+}
+
+- (void)clearAllDots {
+    [self.allBluePoints removeAllObjects];
+    [self.allRedPoints removeAllObjects];
+    [self.allGreenPoints removeAllObjects];
+    [self.allBlackPoints removeAllObjects];
+    [self setNeedsDisplay];
 }
 
 - (void)drawCircleWithColor:(UIColor *)color atPoint:(CGPoint)point {
@@ -50,37 +74,48 @@
     }
 }
 
+- (void)drawExistingGreenDots {
+    for (NSValue *value in self.allGreenPoints) {
+        CGPoint point = [value CGPointValue];
+        [self drawCircleWithColor:[UIColor greenColor] atPoint:point];
+    }
+}
+
+- (void)drawExistingBlackDots {
+    for (NSValue *value in self.allBlackPoints) {
+        CGPoint point = [value CGPointValue];
+        [self drawCircleWithColor:[UIColor yellowColor] atPoint:point];
+    }
+}
+
 - (void)drawRect:(CGRect)rect
 {
     [super drawRect:rect];
     [[UIImage imageNamed:@"1.png"] drawInRect:rect];
     
-    
-    // Blue points
-    if (self.allBluePoints == nil) {
-        self.allBluePoints = [NSMutableArray array];
-    }
-    if (!CGPointEqualToPoint(self.bluePoint, CGPointZero)) {
-        [self.allBluePoints addObject:[NSValue valueWithCGPoint:self.bluePoint]];
-        self.bluePoint = CGPointZero;
-    }
-    
-    // Red points
-    if (self.allRedPoints == nil) {
-        self.allRedPoints = [NSMutableArray array];
-    }
-    
     [self drawExistingBlueDots];
     [self drawExistingRedDots];
+    [self drawExistingGreenDots];
+    [self drawExistingBlackDots];
 }
 
 - (void)drawBlueDotAtPoint:(CGPoint)point {
-    self.bluePoint = point;
+    [self.allBluePoints addObject:[NSNumber valueWithCGPoint:point]];
     [self setNeedsDisplay];
 }
 
-- (void)drawRedDotAtPoints:(NSArray *)points {
-    [self.allRedPoints addObjectsFromArray:points];
+- (void)drawRedDotAtPoint:(CGPoint)point {
+    [self.allRedPoints addObject:[NSNumber valueWithCGPoint:point]];
+    [self setNeedsDisplay];
+}
+
+- (void)drawGreenDotAtPoint:(CGPoint)point {
+    [self.allGreenPoints addObject:[NSNumber valueWithCGPoint:point]];
+    [self setNeedsDisplay];
+}
+
+- (void)drawBlackDotAtPoint:(CGPoint)point {
+    [self.allBlackPoints addObject:[NSNumber valueWithCGPoint:point]];
     [self setNeedsDisplay];
 }
 

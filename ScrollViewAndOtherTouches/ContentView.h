@@ -10,7 +10,10 @@
 
 @interface ContentView : UIView
 
+- (void)clearAllDots;
 - (void)drawBlueDotAtPoint:(CGPoint)point;
-- (void)drawRedDotAtPoints:(NSArray *)points;
+- (void)drawRedDotAtPoint:(CGPoint)point;
+- (void)drawGreenDotAtPoint:(CGPoint)point;
+- (void)drawBlackDotAtPoint:(CGPoint)point;
 
 @end

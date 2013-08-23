@@ -12,6 +12,7 @@
 @implementation PinchRecognizer
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [super touchesBegan:touches withEvent:event];
     if ([touches count] == 2) {
         self.state = UIGestureRecognizerStateBegan;
     }

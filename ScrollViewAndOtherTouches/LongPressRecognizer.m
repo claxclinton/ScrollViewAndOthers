@@ -11,20 +11,30 @@
 
 @implementation LongPressRecognizer
 
+- (void)logStateForTwoTouches:(NSSet *)touches {
+    if ([touches count] == 2) {
+        NSLog(@"state=%d", self.state);
+    }
+}
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-//    NSAssert([touches count] == 1, @"");
+    [super touchesBegan:touches withEvent:event];
+    [self logStateForTwoTouches:touches];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-//    NSAssert([touches count] == 1, @"");
+    [super touchesMoved:touches withEvent:event];
+    [self logStateForTwoTouches:touches];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-//    NSAssert([touches count] == 1, @"");
+    [super touchesEnded:touches withEvent:event];
+    [self logStateForTwoTouches:touches];
 }
 
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-//    NSAssert([touches count] == 1, @"");
+- (void)touchesCancelled:(NSSet *)touches withEveent:(UIEvent *)event {
+    [super touchesCancelled:touches withEvent:event];
+    [self logStateForTwoTouches:touches];
 }
 
 @end

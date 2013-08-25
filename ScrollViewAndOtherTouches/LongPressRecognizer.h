@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LongPressRecognizer : UILongPressGestureRecognizer
-
+@interface LongPressRecognizer : UIGestureRecognizer
+@property (assign, nonatomic) CFTimeInterval minimumPressDuration;
 @end

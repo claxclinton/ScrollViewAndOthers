@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LongPressRecognizer : UIGestureRecognizer
-@property (assign, nonatomic) CFTimeInterval minimumPressDuration;
+@class LongPressRecognizer;
+
+@protocol LongPressRecognizerDelegate
+- (void)longPressRecognizer:(LongPressRecognizer *)longPressRecognizer
+    secondTouchStartAtPoint:(CGPoint)point;
+- (void)longPressRecognizer:(LongPressRecognizer *)longPressRecognizer
+    secondTouchMovedToPoint:(CGPoint)point;
+- (void)longPressRecognizer:(LongPressRecognizer *)longPressRecognizer
+    secondTouchEndAtPoint:(CGPoint)point;
+@end
+
+@interface LongPressRecognizer : UILongPressGestureRecognizer
+@property (weak, nonatomic) id <LongPressRecognizerDelegate> customDelegate;
 @end

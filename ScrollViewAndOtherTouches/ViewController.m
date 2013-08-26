@@ -11,12 +11,13 @@
 #import "PinchRecognizer.h"
 #import "LongPressRecognizer.h"
 
-@interface ViewController () <UIScrollViewDelegate>
+@interface ViewController () <UIScrollViewDelegate, LongPressRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet ContentView *contentView;
 @property (strong, nonatomic) LongPressRecognizer *longPressRecognizer;
 @property (strong, nonatomic) PinchRecognizer *pinchGestureRecognizer;
 @property (strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
+@property (assign, nonatomic) BOOL twoFingerTouchFromLongPress;
 @end
 
 @implementation ViewController
@@ -29,7 +30,8 @@
     // Long press
     self.longPressRecognizer = [[LongPressRecognizer alloc]
                                 initWithTarget:self action:@selector(longPressRecognizer:)];
-//    self.longPressRecognizer.minimumPressDuration = 1.0;
+    self.longPressRecognizer.minimumPressDuration = 1.0;
+    self.longPressRecognizer.customDelegate = self;
     [self.contentView addGestureRecognizer:self.longPressRecognizer];
     
     // Tap
@@ -67,6 +69,19 @@
     } else {
         [self.contentView drawBlackDotAtPoint:point];
     }
+}
+
+- (void)longPressRecognizer:(LongPressRecognizer *)longPressRecognizer secondTouchStartAtPoint:(CGPoint)point {
+    self.twoFingerTouchFromLongPress = YES;
+    [self.contentView drawRedDotAtPoint:point];
+}
+
+- (void)longPressRecognizer:(LongPressRecognizer *)longPressRecognizer secondTouchMovedToPoint:(CGPoint)point {
+    [self.contentView drawRedDotAtPoint:point];
+}
+
+- (void)longPressRecognizer:(LongPressRecognizer *)longPressRecognizer secondTouchEndAtPoint:(CGPoint)point {
+    self.twoFingerTouchFromLongPress = NO;
 }
 
 - (void)pinchRecognizer:(UIGestureRecognizer *)gestureRecognizer {

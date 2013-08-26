@@ -188,6 +188,11 @@
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+#if 1
+    self.state = UIGestureRecognizerStateChanged;
+    return;
+#endif
+    
     [self addLongTouchFromTouches:touches];
     if ([self hasDurationTimeExpired]) {
         if ([self isTouchesWithinLimitedArea]) {

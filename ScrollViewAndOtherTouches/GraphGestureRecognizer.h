@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface GraphGestureRecognizer : UIGestureRecognizer
-
+@property (assign, nonatomic) CFTimeInterval minimumPressDuration;
 @end

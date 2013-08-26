@@ -38,6 +38,8 @@
 }
 @end
 
+#define kDefaultMinimumPressDuration 1.0
+
 @interface GraphGestureRecognizer ()
 @property (strong, nonatomic) NSTimer *longPressTimer;
 @property (strong, nonatomic) NSMutableArray *longPressTouches;
@@ -52,6 +54,7 @@
     self = [super initWithTarget:target action:action];
     if (self) {
         self.longPressTouches = [NSMutableArray array];
+        self.minimumPressDuration = kDefaultMinimumPressDuration;
     }
     return self;
 }
@@ -116,9 +119,12 @@
 {
     if (self.state == UIGestureRecognizerStateBegan) {
         self.state = UIGestureRecognizerStateChanged;
-    } else if ((self.state == UIGestureRecognizerStatePossible) &&
-               ([touches count] == 1)) {
+    } else if ((self.state == UIGestureRecognizerStatePossible) && ([touches count] == 1)) {
         [self addLongPressTouchFromTouch:[touches anyObject]];
+        if (![self isTouchesNarrowlyGrouped]) {
+            [self cancelTimer];
+            self.state = UIGestureRecognizerStateFailed;
+        }
     }
 }
 
@@ -140,8 +146,8 @@
 
 - (void)startTimer
 {
-    self.longPressTimer = [NSTimer timerWithTimeInterval:1.0 target:self selector:@selector(timerTriggered)
-                                                userInfo:nil repeats:NO];
+    self.longPressTimer = [NSTimer timerWithTimeInterval:self.minimumPressDuration target:self
+                                                selector:@selector(timerTriggered) userInfo:nil repeats:NO];
     [[NSRunLoop currentRunLoop] addTimer:self.longPressTimer forMode:NSDefaultRunLoopMode];
 }
 

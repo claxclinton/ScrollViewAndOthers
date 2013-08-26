@@ -40,6 +40,7 @@
 
 @interface LongPressRecognizer ()
 @property (strong, nonatomic) NSMutableArray *longPressTouches;
+@property (assign, nonatomic) BOOL longTouchEvaluated;
 @end
 
 @implementation LongPressRecognizer
@@ -52,6 +53,33 @@
         self.minimumPressDuration = 0;
     }
     return self;
+}
+
+- (NSString *)stringFromRecognizerState:(UIGestureRecognizerState)state
+{
+    switch (state) {
+        case UIGestureRecognizerStatePossible:
+            return @"UIGestureRecognizerStatePossible";
+        case UIGestureRecognizerStateBegan:
+            return @"UIGestureRecognizerStateBegan";
+        case UIGestureRecognizerStateChanged:
+            return @"UIGestureRecognizerStateChanged";
+        case UIGestureRecognizerStateEnded:
+            return @"UIGestureRecognizerStateEnded";
+        case UIGestureRecognizerStateCancelled:
+            return @"UIGestureRecognizerStateCancelled";
+        case UIGestureRecognizerStateFailed:
+            return @"UIGestureRecognizerStateFailed";
+        default:
+            return  nil;
+    }
+}
+
+- (void)setState:(UIGestureRecognizerState)state
+{
+    NSLog(@"STATE: %@ --> %@", [self stringFromRecognizerState:self.state],
+          [self stringFromRecognizerState:state]);
+    [super setState:state];
 }
 
 // if a touch isn't part of this gesture it can be passed to this method to be ignored. ignored touches won't be cancelled on the view even if cancelsTouchesInView is YES
@@ -127,15 +155,16 @@
     return isWithinLimitedArea;
 }
 
-- (BOOL)longPressDetected
+- (BOOL)hasDurationTimeExpired
 {
+    return YES;
+    
     if ([self.longPressTouches count] > 1) {
         LongPressTouch *first = [self.longPressTouches objectAtIndex:0];
         LongPressTouch *last = [self.longPressTouches lastObject];
         CFTimeInterval totalTime = (last.timestamp - first.timestamp);
         if (totalTime > self.minimumPressDuration) {
-            BOOL isWithinLimitedArea = [self isTouchesWithinLimitedArea];
-            return isWithinLimitedArea;
+            return YES;
         } else {
             return NO;
         }
@@ -144,41 +173,48 @@
     }
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)addLongTouchFromTouches:(NSSet *)touches
 {
     UITouch *touch = [self singleTouchFromTouches:touches];
     LongPressTouch *longPressTouch = [[LongPressTouch alloc] initWithTouch:touch];
     [self.longPressTouches addObject:longPressTouch];
-    self.state = UIGestureRecognizerStatePossible;
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self addLongTouchFromTouches:touches];
+    self.state = UIGestureRecognizerStateBegan;
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    UITouch *touch = [self singleTouchFromTouches:touches];
-    LongPressTouch *longPressTouch = [[LongPressTouch alloc] initWithTouch:touch];
-    [self.longPressTouches addObject:longPressTouch];
-    if (self.state == UIGestureRecognizerStatePossible && [self longPressDetected]) {
-        self.state = UIGestureRecognizerStateRecognized;
+    [self addLongTouchFromTouches:touches];
+    if ([self hasDurationTimeExpired]) {
+        if ([self isTouchesWithinLimitedArea]) {
+            self.state = UIGestureRecognizerStateChanged;
+        } else {
+            self.state = UIGestureRecognizerStateFailed;
+        }
+        self.longTouchEvaluated = YES;
     } else {
-        self.state = UIGestureRecognizerStateFailed;
-        [self ignoreTouch:touch forEvent:event];
+        if (self.longTouchEvaluated) {
+            if (self.state == UIGestureRecognizerStateChanged) {
+                self.state = UIGestureRecognizerStateChanged;
+            }
+        }
     }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    UITouch *touch = [self singleTouchFromTouches:touches];
-    LongPressTouch *longPressTouch = [[LongPressTouch alloc] initWithTouch:touch];
-    [self.longPressTouches addObject:longPressTouch];
+    [self addLongTouchFromTouches:touches];
     [self logTouches];
     self.state = UIGestureRecognizerStateEnded;
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEveent:(UIEvent *)event
 {
-    UITouch *touch = [self singleTouchFromTouches:touches];
-    LongPressTouch *longPressTouch = [[LongPressTouch alloc] initWithTouch:touch];
-    [self.longPressTouches addObject:longPressTouch];
+    [self addLongTouchFromTouches:touches];
     [self logTouches];
     self.state = UIGestureRecognizerStateCancelled;
 }

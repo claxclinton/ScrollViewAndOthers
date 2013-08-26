@@ -29,7 +29,7 @@
     // Long press
     self.longPressRecognizer = [[LongPressRecognizer alloc]
                                 initWithTarget:self action:@selector(longPressRecognizer:)];
-    self.longPressRecognizer.minimumPressDuration = 1.0;
+//    self.longPressRecognizer.minimumPressDuration = 1.0;
     [self.contentView addGestureRecognizer:self.longPressRecognizer];
     
     // Tap
